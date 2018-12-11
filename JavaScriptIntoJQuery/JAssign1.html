@@ -1,0 +1,45 @@
+<html>
+	<head>
+        <title> JavaScript Into JQuery Assignment 1 </title>
+        <style>*{margin: 5px;}</style>
+        <script src="jquery.min.js"></script>    
+        <script>	
+        $(function(){
+            $("#check").click(function () {
+                $("#inputText").text("");
+                $("#goodPrime").text("");
+                $("#horriblePrime").text("");
+                if($("#inputText").val()>-1) {
+                    var flag = 0;
+                    for(var i=2; i<$("#inputText").val();i++){
+                        if($("#inputText").val()%i==0){
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if(flag==1 || ($("#inputText").val())<2){			
+                        $("#inputText").val("Please enter prime number only.");
+                    }
+                    else{
+                        if(($("#inputText").val())==2)
+                        $("#horriblePrime").text("Horrible prime number");
+                        else $("#goodPrime").text("Good prime number");
+                    }
+                }  
+                else{
+                    $("#inputText").val("Please enter positive prime number only.");
+                }            
+            });
+        });
+        
+        </script>
+    </head>
+	<body>
+		<b> <input type="text" id="inputText" onfocus="javascript:inputText.value=''"/>
+        <span id="goodPrime"></span> 
+        </b><br/>
+		<button id="check"> Check </button>
+		<br/>
+		<b id = "horriblePrime"></b>
+	</body>
+</html>

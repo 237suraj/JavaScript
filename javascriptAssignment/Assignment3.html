@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment 3</title>
+    <style>
+        #unique{
+            color: blue;
+        }
+        #multiple{
+            color: red;
+        }
+    </style>
+    <script lang="javascript">
+        onload = function () {
+
+            var randomArray = createArray(50,1,20);
+            document.getElementById("randomArray").innerHTML = randomArray;
+
+            for (let i = 0; i < randomArray.length; i++) {
+                var count = getCount(randomArray[i],randomArray);
+                    if (count==1)
+                    document.getElementById("uniqueNumber").innerHTML+=randomArray[i]+" ";
+            }        
+
+            var uniqueDuplicate = document.getElementById("uniqueDuplicate");
+            for (let i = 0; i < randomArray.length; i++) {
+                var count = getCount(randomArray[i],randomArray);
+                    if (count==1)
+                        uniqueDuplicate.innerHTML+="<span id='unique'>"+randomArray[i]+"</span>,";
+                    else
+                        uniqueDuplicate.innerHTML+="<span id='multiple'>"+randomArray[i]+"</span>,";
+            } 
+            
+            var threeTime = document.getElementById("threeTime");
+            var myArray = randomArray;
+            randomArray = [];
+            for (let i = 0; i < myArray.length; i++) {
+                var count = getCount(myArray[i],myArray);                
+                if (count>3) {
+                    if (myArray[i]!="" && myArray[i]!=null) {
+                        threeTime.innerHTML+=myArray[i]+ " ";
+                        deleteValueFromArray(myArray[i],myArray);                        
+                    }
+                } 
+                else randomArray.push(myArray[i]);            
+            } 
+            var uniArray = Array.from(new Set(randomArray));
+            uniArray.sort(function (a,b) {
+                return a-b;
+            });
+            console.log(uniArray);
+            document.getElementById("secondSmall").innerHTML += uniArray[1];
+
+            function deleteValueFromArray(val,arr) {
+                var count=0;
+                for (let i = 0; i < arr.length; i++) {
+                    if (val==arr[i]) {
+                        delete arr[i];
+                        count++;
+                    }
+                }
+                return count;
+            }
+            function getCount(value,array) {
+                var count = 0;
+                for (let i = 0; i < array.length; i++) {
+                    if (value == array[i]) count++;
+                }
+                return count;
+            }
+            function createArray(size,min,max) {
+                var randomArray = [];
+                for (let i = 0; i < size; i++) {
+                    randomArray[i] = Math.floor(Math.random()*(max-min)+min);
+                }
+                return randomArray;
+            }
+        }
+    </script>
+</head>
+<body>
+    <span id="randomArray"></span><br>
+    <span id="uniqueNumber">Unique value is = </span><br>
+    <span id="uniqueDuplicate">Blue is Unique = </span><br>
+    <span id="threeTime">Deleted 3 time more = </span><br>
+    <span id="secondSmall">Second small value = </span><br>
+</body>
+</html>

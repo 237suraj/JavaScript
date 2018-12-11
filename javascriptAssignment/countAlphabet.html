@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Assignment Second</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script lang="javascript">
+        function countAlphabets(input) {
+            var list = document.getElementById("list");
+            list.innerHTML = "";
+            var str = input.value;
+            while (str) {
+                var letter_count = 0;
+                var newStr = "";
+                for (let i = 0; i < str.length; i++) {
+                    if (str[0] == str[i]) 
+                        letter_count+=1;
+                    else
+                        newStr+=str[i];
+                }  
+                if(str[0]!=" ")  
+                list.innerHTML += "<li>"+str[0]+" = "+letter_count+"</li>";
+                str = newStr;           
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Count Alphabets</h1>
+    <div><input type="text" id="inputText" onfocus="javascript:inputText.value='';"></div>
+    <div><button onclick="countAlphabets(inputText)">Count Alphabets</button></div>
+    <ul id="list"></ul>
+</body>
+</html>

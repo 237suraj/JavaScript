@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment 5</title>
+    <style>
+        *{
+            margin: 5px;
+        }
+        #changeValue,#buttons{
+            display: none;
+        }
+        .show{ display: block;}
+        .cr{color: red}
+        .cb{color: blue}
+        .cg{color: green}
+    </style>
+    <script src="jquery.min.js"></script> 
+    <script lang="javascript">
+        function createArray(size,min,max) {
+            var randomArray = [];
+            for (let i = 0; i < size; i++) {
+                randomArray[i] = Math.floor(Math.random()*max+min);
+            }
+            return randomArray;
+        }
+
+        var isAvailable = function (value,array) {
+            for (let i = 0; i < array.length; i++) {
+                if (value==array[i]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        $(function () {
+            var myArray = createArray(10,1,9);
+            $("#randomArray").text("Array = ["+myArray+"]");
+            $("#inputText").blur(function () {
+               if (isAvailable($("#inputText").val(),myArray)) {
+                    $("#changeValue").show();
+                    $("#buttons").show();
+                    $("#message").text("");
+               }
+               else{
+                    $("#changeValue").hide();
+                    $("#buttons").hide();
+                    $("#message").removeClass();
+                    $("#message").addClass("cr");
+                    $("#message").text("Not Exist");
+               }
+            });
+
+            $("#modifyValue").click(function () {
+                if (isAvailable(($("#changeValue").val()),myArray)) {
+                    for (let i = 0; i < myArray.length; i++) {
+                        if (($("#inputText").val())==myArray[i]) {
+                            myArray[i] = $("#changeValue").val();
+                            $("#message").addClass("cg");
+                            $("#message").text($("#inputText").val() + " is modified");
+                        }
+                    }
+                    $("#randomArray").text("New Array = ["+myArray+"]");
+                }
+                else{
+                    myArray.push($("#changeValue").val());
+                    $("#message").addClass("cg");
+                    $("#message").text($("#changeValue").val() + " is added in array");
+                    $("#randomArray").text("New Array = ["+myArray+"]");
+                }
+            });
+
+            $("#deleteValue").click (function () {
+                var newArray = [];
+                for (let i = 0; i < myArray.length; i++) {
+                    if (($("#inputValue").val())==myArray[i]) {
+                        delete myArray[i];
+                    }
+                    else{
+                        newArray.push(myArray[i]);
+                    }
+                }
+                myArray = newArray;
+                $("#randomArray").text("New Array = ["+myArray+"]");
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <span id="randomArray"></span><br>
+    <input type="text" id="inputText">
+    <span id="message"></span><br>
+    <input type="text" id="changeValue">
+    <div id="buttons"><button id="modifyValue">Modify</button><button id="deleteValue">Delete</button></div>
+</body>
+</html>

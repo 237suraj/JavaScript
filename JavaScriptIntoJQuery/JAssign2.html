@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> JavaScript Into JQuery Assignment 2 </title>
+    <style>*{margin: 5px;}</style>
+    ☻<script src="jquery.min.js"></script>    
+    <script lang="javascript">
+
+        $(function () {
+            $("#countWord").click(function () {
+                var inputText = $("#inputText").val();
+                var strArray = inputText.split(" ");
+                $("#list").text("");
+                for (let i = 0; i < strArray.length; i++) {
+                    var wordCount = 0;
+                    var tempArray = [];
+                    tempArray.push(strArray[i]);
+                    for (let j = 0; j < strArray.length; j++) {
+                        if (tempArray[0]===strArray[j]) {
+                            wordCount++;
+                        }
+                        else{
+                            tempArray.push(strArray[j]);
+                        }
+                    }
+                    if(tempArray[0]!=' '){
+                        $("#list").append("<li>"+tempArray[0]+" = "+wordCount+"</li>");
+                    }
+                    strArray = tempArray;
+                }
+            });
+        });
+        
+    </script>
+</head>
+<body>
+    <input type="text" id="inputText" onfocus="javascript:inputText.value=''"><br>
+    <button id="countWord">Count Word</button><br>
+    <ul id="list"></ul>
+</body>
+</html>

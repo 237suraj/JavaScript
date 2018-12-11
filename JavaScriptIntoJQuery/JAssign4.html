@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment 4</title>
+    <script src="jquery.min.js"></script> 
+    <script lang="javascript">
+        
+
+        $(function(){
+            $("#setvalue").click(function () {
+                var i1 = new Item();
+                i1.setItemDetails($("#itemno").val(),$("#price").val());
+                var i = i1.getItemDetails();
+                $("#list").append("<li> Item No = "+i.itemno+" and Price  = "+i.price+"</li>");  
+                
+            });
+            
+            $("#setDiscount").click(function () {
+                var d1 = new DiscountedItem();
+                d1.setDiscount($("#discount").val());
+                DiscountedItem.prototype = new Item();
+                var d2 = new DiscountedItem();
+                d2.setDiscount($("#discount").val());
+                d2.setItemDetails($("#itemno").val(),$("#price").val());
+                var i = d2.getItemDetails();
+                $("#list").append("<li> Item No = "+i.itemno+" and Price  = "+i.price+" and Discount = "+d2.getDiscount()+"</li>");  
+            });
+        });
+
+        function Item() {
+            this.itemno = 0;
+            this.price = 0;
+            this.setItemDetails = function(itemno,price) {
+                this.itemno = itemno;
+                this.price = price; 
+            }
+            this.getItemDetails = function() {
+                var obj = {'itemno': this.itemno,'price':this.price}
+                return obj;
+            }
+        }
+
+        function DiscountedItem () {
+            this.discount = 10;
+            this.setDiscount = function (discount) {
+                this.discount = discount;
+            }
+            this.getDiscount = function () {
+                return this.discount;
+            }
+        } 
+
+    </script>
+</head>
+<body>
+    <div>Item No : <input type="number" id="itemno"> 
+        Price : <input type="number" id="price">
+        Discount : <input type="number" id="discount">
+    </div>
+    <input type="button" value="Set value" id="setvalue">
+    <input type="button" value="Set Discount" id="setDiscount">
+    <ul id="list"></ul>
+
+</body>
+</html>

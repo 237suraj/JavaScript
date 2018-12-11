@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment 2</title>
+    <style>
+        *{margin: 5px;}
+    </style>
+    <script lang="javascript">
+        onload = function () {
+            document.getElementById("countWord").onclick = function () {
+                document.getElementById("list").innerHTML="";
+                var inputText = document.getElementById("inputText").value;
+                var strArray = inputText.split(" ");
+                var uniArray = Array.from(new Set(strArray));
+                for (let i = 0; i < uniArray.length; i++) {
+                    document.getElementById("list").innerHTML+="<li>"+uniArray[i]+" = "+getCount(uniArray[i],strArray)+"</li>"
+                }
+            }
+
+            function getCount(value,array) {
+                var count = 0;
+                for (let i = 0; i < array.length; i++)
+                    if (value == array[i]) count++;
+                return count;
+            }
+        }
+        
+    </script>
+</head>
+<body>
+    <input type="text" id="inputText"><br>
+    <button id="countWord">Count Word</button><br>
+    <ul id="list"></ul>
+</body>
+</html>

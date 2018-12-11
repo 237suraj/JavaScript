@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment 5</title>
+    <style>
+        *{ margin: 5px;}
+        #changeValue,#buttons{ display: none;}
+        .show{ display: block;}
+        .cr{color: red}
+        .cb{color: blue}
+        .cg{color: green}
+    </style>
+    <script lang="javascript">
+        
+        onload = function () {
+            var myArray = createArray(10,1,9);
+            var inputText = document.getElementById("inputText");
+            document.getElementById("randomArray").innerHTML = "Array = ["+myArray+"]";
+            inputText.onblur = function () {
+               if (myArray.includes(parseInt(inputText.value))) {
+                    document.getElementById("changeValue").style.display = "block";
+                    document.getElementById("buttons").style.display = "block";
+                    document.getElementById("message").innerHTML = "";
+               }
+               else notExist();
+            }
+
+            document.getElementById("modifyValue").onclick = function () {
+                var value = document.getElementById("changeValue").value;
+                if (myArray.includes(parseInt(inputText.value))) {
+                    if (myArray.includes(parseInt(value))) {
+                        for (let i = 0; i < myArray.length; i++) 
+                            if (inputText.value==myArray[i]) myArray[i] = parseInt(value);
+                        modified(inputText.value,"modified");
+                    }
+                    else{
+                        myArray.push(parseInt(value));
+                        modified(value,"added");
+                    }
+                }
+                else notExist();
+           }
+
+            document.getElementById("deleteValue").onclick = function () {
+                if (myArray.includes(parseInt(inputText.value))) {
+                    var newArray = [];
+                    for (let i = 0; i < myArray.length; i++) {
+                        if (inputText.value==myArray[i]) delete myArray[i];
+                        else newArray.push(myArray[i]);
+                    }
+                    myArray = newArray;
+                    modified(inputText.value,"deleted")
+                }else notExist();
+            }
+
+            function modified(value,msg) {
+                document.getElementById("message").className = "cg";
+                document.getElementById("message").innerHTML = value + " is "+msg;
+                document.getElementById("randomArray").innerHTML = "New Array = ["+myArray+"]";
+            }
+            
+            function notExist() {
+                document.getElementById("changeValue").style.display = "none";
+                document.getElementById("buttons").style.display = "none";
+                document.getElementById("message").className = "cr";
+                document.getElementById("message").innerHTML = "Not Exist";
+            }
+            function createArray(size,min,max) {
+                var randomArray = [];
+                for (let i = 0; i < size; i++) randomArray[i] = Math.floor(Math.random()*max+min);
+                return randomArray;
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <span id="randomArray"></span><br>
+    <input type="text" id="inputText" onfocus="javascript:inputText.value=''">
+    <span id="message"></span><br>
+    <input type="text" id="changeValue">
+    <div id="buttons"><button id="modifyValue">Modify</button><button id="deleteValue">Delete</button></div>
+</body>
+</html>

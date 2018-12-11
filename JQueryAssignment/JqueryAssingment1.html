@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Jquery Assignment 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="jquery.min.js"></script>
+    <script>
+        $(function () {
+            var myArray = [];
+            $("#addButton").click(function() {
+                if($("#inputText").val()!=""){
+                    if(!myArray.includes($("#inputText").val())){
+                        myArray.push($("#inputText").val());
+                        $("#message").text($("#inputText").val()+" is added").css("color","green");
+                    }
+                    else{
+                        $("#message").text($("#inputText").val()+" is already exist").css("color","red");
+                    }
+                    $("#arrList").text("["+myArray+"]");
+                }
+                else $("#message").text("Enter value").css("color","red");
+            });
+
+            $("#deleteButton").click(function () {
+                if($("#inputText").val()!=""){
+                    if(!myArray.includes($("#inputText").val())){
+                        $("#message").text($("#inputText").val()+" is does not exist").css("color","red");
+                    }
+                    else{
+                        myArray.splice($.inArray($("#inputText").val(), myArray),1);
+                        $("#message").text($("#inputText").val()+" is removed").css("color","green");
+                        $("#arrList").text("["+myArray+"]");
+                    } 
+                }
+                else $("#message").text("Enter value").css("color","red");
+            });
+
+            $("#backupButton").click(function () {
+                $("#message").text("Array is not Stored").css("color","red");
+                if(confirm("Do you want to store array?")){
+                    localStorage.removeItem("JqueryAssignmentArray");
+                    localStorage.setItem("JqueryAssignmentArray", JSON.stringify(myArray));
+                    $("#message").text("Array is Stored").css("color","green");
+                }
+            });
+            $("#restoreButton").click(function () {
+                $("#message").text("Array is not restored").css("color","red");
+                if(confirm("Do you want to Restore array?")){
+                    myArray = JSON.parse(localStorage.getItem("JqueryAssignmentArray"));
+                    $("#message").text("Array is restored successfully").css("color","green");
+                    $("#restoreArr").text("["+myArray+"]");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="text" id="inputText" onfocus="javascript:inputText.value=''">
+    <span id="message"></span>
+    <br><br>
+    <button id="addButton">Add</button>
+    <button id="deleteButton">Delete</button><br><br>
+    <button id="backupButton">Back up</button>
+    <button id="restoreButton">Restore</button><br><br>
+    <span id="arrList"></span><br><br>
+    <span id="restoreArr"></span>
+</body>
+</html>

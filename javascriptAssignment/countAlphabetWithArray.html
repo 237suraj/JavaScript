@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Assignment 2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script lang="javascript">
+        function setValue() {
+            var list= document.getElementById("list");
+            var inputString = document.getElementById("inputString");
+            inputString.value = "";
+            list.innerHTML ="";   
+        }
+        function countAlphabet(str) {
+            var array = str.value;
+            var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+            var list= document.getElementById("list");
+            for (let i = 0; i < alphabet.length; i++) {
+                var letter_count=0;
+                for (let j = 0; j < array.length; j++) {
+                    if (alphabet[i]==array[j]) {
+                        letter_count+=1;
+                    }
+                }
+                if (letter_count!=0) {
+                    list.innerHTML +="<li>"+alphabet[i]+" : "+letter_count+"</li><br/>";                
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div><input id="inputString" type="text" onfocus="setValue()"></div>
+    <div><button onclick="countAlphabet(inputString)">Count alphabet</button></div>
+    <ul id="list"></ul>
+</body>
+</html>

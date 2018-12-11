@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment 4</title>
+    <script lang="javascript">
+        function Item() {
+            this.itemno = 0;
+            this.price = 0;
+            this.setItemDetails = function(itemno,price) {
+                this.itemno = itemno;
+                this.price = price; 
+            }
+            this.getItemDetails = function() {
+                var obj = {'itemno': this.itemno,'price':this.price}
+                return obj;
+            }
+        }
+        function setvalue() {
+            var i1 = new Item();
+            var itemno = document.getElementById("itemno").value;
+            var price = document.getElementById("price").value;
+            i1.setItemDetails(itemno,price);
+            var i = i1.getItemDetails();
+            document.getElementById("list").innerHTML+="<li> Item No = "+i.itemno+" and Price  = "+i.price+"</li>";  
+        }  
+
+        function DiscountedItem () {
+            this.discount = 10;
+            this.setDiscount = function (discount) {
+                this.discount = discount;
+            }
+            this.getDiscount = function () {
+                return this.discount;
+            }
+        } 
+        function setDiscount () {
+            var d1 = new DiscountedItem();
+            var discount = document.getElementById("discount").value;
+
+            d1.setDiscount(discount);
+            DiscountedItem.prototype = new Item();
+
+            var d2 = new DiscountedItem();
+            var itemno = document.getElementById("itemno").value;
+            var price = document.getElementById("price").value;
+            d2.setDiscount(discount);
+            d2.setItemDetails(itemno,price);
+            var i = d2.getItemDetails();
+            document.getElementById("list").innerHTML+="<li> Item No = "
+                +i.itemno+" and Price  = "+i.price+" and Discount = "+d2.getDiscount()+"</li>";  
+
+
+        }
+
+
+    </script>
+</head>
+<body>
+    <div>Item No : <input type="number" id="itemno"> 
+        Price : <input type="number" id="price">
+        Discount : <input type="number" id="discount">
+    </div>
+    <input type="button" value="Set value" onclick="setvalue()">
+    <input type="button" value="Set Discount" onclick="setDiscount()">
+    <ul id="list"></ul>
+
+</body>
+</html>
